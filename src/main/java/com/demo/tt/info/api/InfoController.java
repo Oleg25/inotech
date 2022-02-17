@@ -31,16 +31,15 @@ public class InfoController {
             var listA = request.getListA();
             var listB = request.getListB();
 
-            listA.stream().forEach(itemA ->
-            {
-                listB.stream().forEach(
-                        itemB -> {
-                            if (itemA.equals(itemB)) {
-                                listB.remove(itemA);
-                            }
-                        }
-                );
-            });
+
+            for (int i=0; i< listA.size(); i++) {
+                for (int j=0; j< listB.size(); j++) {
+
+                   if (listA.get(i).equals(listB.get(j))) {
+                       listB.remove(j);
+                    }
+                }
+            }
 
             //тут остортированный список
             infoResponse = InfoResponse.builder()
@@ -51,7 +50,7 @@ public class InfoController {
         } else return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
 
-        return new ResponseEntity<InfoResponse>(infoResponse,HttpStatus.OK);
+        return new ResponseEntity<>(infoResponse,HttpStatus.OK);
     }
 
 
